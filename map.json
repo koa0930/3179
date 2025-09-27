@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 980,
+  "height": 520,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": {
+        "url": "js/ne_110m.json",
+        "format": {"type": "topojson", "feature": "<<<ここを置き換え>>>"}
+      },
+      "mark": {"type": "geoshape", "fill": "#eeeeee", "stroke": "#999"}
+    },
+    {
+      "data": { "url": "data/Mineral ores round the world.csv" },
+      "transform": [
+        { "sample": 5000 }   
+      ],
+      "mark": {"type": "circle", "opacity": 0.6, "size": 12},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "color": {"field": "commod1", "type": "nominal", "title": "Commodity"},
+        "tooltip": [
+          {"field": "site_name", "title": "Site"},
+          {"field": "commod1", "title": "Primary"},
+          {"field": "country", "title": "Country"},
+          {"field": "state", "title": "State"}
+        ]
+      }
+    }
+  ]
+}

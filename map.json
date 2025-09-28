@@ -3,46 +3,60 @@
   "width": 980,
   "height": 520,
   "projection": {"type": "mercator"},
-  "title": {"text": "Global Mine Distribution by Country", "fontSize": 22},
-  "data": {
-    "url": "https://raw.githubusercontent.com/koa0930/3179/main/ne_110m.json",
-    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-  },
-  "transform": [
+  "layer": [
     {
-      "lookup": "properties.NAME",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/koa0930/3179/main/mine_simple.csv"
+      "data": {
+        "url": "https://raw.githubusercontent.com/koa0930/3179/main/ne_110m.json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#eeeeee", "stroke": "#999"}
+    },
+    {
+      "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/mine_simple.csv"},
+      "transform": [
+        {
+          "aggregate": [
+            {"op": "count", "as": "mines"},
+            {"op": "mean", "field": "longitude", "as": "lon"},
+            {"op": "mean", "field": "latitude", "as": "lat"}
+          ],
+          "groupby": ["country"]
         },
-        "transform": [
-          {"aggregate": [{"op": "count", "as": "mines"}], "groupby": ["country"]}
-        ],
-        "key": "country",
-        "fields": ["mines"]
+        {
+          "calculate": "datum.mines <= 500 ? '0–500' : datum.mines <= 1000 ? '501–1,000' : datum.mines <= 5000 ? '1,001–5,000' : '5,001+'",
+          "as": "mines_bucket"
+        }
+
+      ],
+      "mark": {"type": "circle", "opacity": 0.85, "stroke": "#fff", "strokeWidth": 0.5},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+          "field": "mines_bucket",
+          "type": "ordinal",
+          "title": "Mine count (class)",
+          "scale": {
+            "domain": ["0–500", "501–1,000", "1,001–5,000", "5,001+"],
+            "range":  [120,     400,        900,           1600]
+          },
+          "legend": {"symbolType": "circle"}
+        },
+        "color": {
+          "field": "mines_bucket",
+          "type": "ordinal",
+          "title": "Mine count (class)",
+          "scale": {
+            "domain": ["0–500", "501–1,000", "1,001–5,000", "5,001+"],
+            "range":  ["#fee5d9", "#fcae91", "#fb6a4a", "#a50f15"]
+          }
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "mines", "title": "# of mines"},
+          {"field": "mines_bucket", "title": "Class"}
+        ]
       }
-    },
-    {"calculate": "isValid(datum.mines) ? datum.mines : 0", "as": "mines"},
-    {
-      "calculate": "datum.mines < 100 ? '0–99' : datum.mines < 500 ? '100–499' : datum.mines < 1000 ? '500–999' : datum.mines < 10000 ? '1k–9,999' : '10k+'",
-      "as": "mine_class"
     }
-  ],
-  "mark": {"type": "geoshape", "stroke": "#999"},
-  "encoding": {
-    "color": {
-      "field": "mine_class",
-      "type": "ordinal",
-      "title": "Mine count (class)",
-      "scale": {
-        "domain": ["0–99", "100–499", "500–999", "1k–9,999", "10k+"],
-        "range": ["#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15"]
-      }
-    },
-    "tooltip": [
-      {"field": "properties.NAME", "title": "Country"},
-      {"field": "mines", "title": "# of mines"},
-      {"field": "mine_class", "title": "Class"}
-    ]
-  }
+  ]
 }

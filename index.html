@@ -1,20 +1,28 @@
 <!doctype html>
-<meta charset="utf-8" />
-<link rel="stylesheet" href="style.css" />
-
-<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-
-<div class="page">
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Global Mine Visualisations</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
   <h1 class="page-title">Global Mine Distribution by Country in 2022</h1>
-  <div id="vis"></div>
-</div>
 
-<script>
-  vegaEmbed(
-    "#vis",
-    "https://raw.githubusercontent.com/koa0930/3179/main/map.json",
-    { actions: false }
-  ).catch(console.error);
-</script>
+  <div class="row">
+    <section class="col">
+      <h2>World Map (Week 9)</h2>
+      <div id="vis-map"></div>
+    </section>
+
+    <section class="col">
+      <h2>Top 10 Countries by Mine Sites (Week 10)</h2>
+      <div id="vis-task1"></div>
+    </section>
+  </div>
+
+  <script src="./js/vegalite.js?v=8"></script>
+</body>
+</html>

@@ -1,75 +1,18 @@
-
-
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "vconcat": [
-    {
-      "title": "Gold / Silver / Copper — Annual Mine Output (tonnes)",
-      "width": "container",
-      "height": 360,
-      "data": {
-        "url": "https://raw.githubusercontent.com/koa0930/3179/main/minerals.csv"
-      },
-      "transform": [
-        { "filter": "datum.material == 'O.Au' || datum.material == 'O.Ag' || datum.material == 'O.Cu'" },
-        { "calculate": "datum.material == 'O.Au' ? 'Gold' : datum.material == 'O.Ag' ? 'Silver' : 'Copper'", "as": "metal" }
-      ],
-      "mark": { "type": "area" },
-      "encoding": {
-        "x": {
-          "field": "year",
-          "type": "temporal",
-          "timeUnit": "year",
-          "scale": { "domain": { "param": "brush" } },
-          "axis": { "title": "" }
-        },
-        "y": {
-          "aggregate": "sum",
-          "field": "value_tonn",
-          "type": "quantitative",
-          "title": "Output (tonnes)",
-          "stack": "normalize"
-        },
-        "color": {
-          "field": "metal",
-          "type": "nominal",
-          "title": "Metal",
-          "sort": ["Gold", "Silver", "Copper"]
-        },
-        "tooltip": [
-          { "field": "metal", "title": "Metal" },
-          { "field": "year", "type": "temporal", "timeUnit": "year" },
-          { "aggregate": "sum", "field": "value_tonn", "title": "Output (t)", "format": "," }
-        ]
-      }
-    },
-    {
-      "width": "container",
-      "height": 80,
-      "data": {
-        "url": "https://raw.githubusercontent.com/koa0930/3179/main/minerals.csv"
-      },
-      "transform": [
-        { "filter": "datum.material == 'O.Au' || datum.material == 'O.Ag' || datum.material == 'O.Cu'" }
-      ],
-      "mark": { "type": "line" },
-      "params": [
-        { "name": "brush", "select": { "type": "interval", "encodings": ["x"] } }
-      ],
-      "encoding": {
-        "x": { "field": "year", "type": "temporal", "timeUnit": "year", "axis": { "title": "" } },
-        "y": {
-          "aggregate": "sum",
-          "field": "value_tonn",
-          "type": "quantitative",
-          "title": "Total (t)",
-          "axis": { "tickCount": 3, "grid": false }
-        }
-      }
-    }
-  ],
-  "config": {
-    "axis": { "grid": true },
-    "title": { "fontSize": 16 }
-  }
+  "title": "Mine Output by Year (2000–2020)",
+  "data": { "url": "mine_output.csv" },
+  "mark": { "type": "area", "line": true, "point": true },
+  "encoding": {
+    "x": { "field": "year", "type": "ordinal", "title": "Year" },
+    "y": { "field": "value_tonnes", "type": "quantitative", "title": "Output (tonnes)" },
+    "color": { "field": "material", "type": "nominal", "title": "Material" },
+    "tooltip": [
+      { "field": "year" },
+      { "field": "material" },
+      { "field": "value_tonnes", "title": "Tonnes" }
+    ]
+  },
+  "width": "container",
+  "height": 300
 }

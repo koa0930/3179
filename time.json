@@ -2,10 +2,18 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Mine Output by Year (2000–2020)",
   "data": { "url": "mine_output.csv" },
-  "mark": { "type": "area", "line": true, "point": true },
+  "mark": { "type": "line", "point": true },
   "encoding": {
-    "x": { "field": "year", "type": "ordinal", "title": "Year" },
-    "y": { "field": "value_tonnes", "type": "quantitative", "title": "Output (tonnes)" },
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "axis": { "title": "Year", "format": "d", "tickCount": 10 }
+    },
+    "y": {
+      "field": "value_tonnes",
+      "type": "quantitative",
+      "title": "Output (tonnes)"
+    },
     "color": { "field": "material", "type": "nominal", "title": "Material" },
     "tooltip": [
       { "field": "year" },
@@ -14,5 +22,5 @@
     ]
   },
   "width": "container",
-  "height": 300
+  "height": 320
 }

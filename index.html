@@ -11,17 +11,25 @@
 <body>
   <h1 class="page-title">Global Mine Distribution by Country in 2022</h1>
 
-  <div class="row">
-    <section class="col">
-      <h2>World Map (Week 9)</h2>
+  <main class="container">
+    <!-- Card 1 -->
+    <section class="card">
+      <h2>Map of Global Mine Distribution by Country</h2>
       <div id="vis-map"></div>
     </section>
 
-    <section class="col">
-      <h2>Top 10 Countries by Mine Sites (Week 10)</h2>
+    <!-- Card 2 -->
+    <section class="card">
+      <h2>Top 10 Countries by Mine Sites</h2>
       <div id="vis-task1"></div>
+
+      <p class="desc">
+        This chart ranks the countries with the most mine sites for the selected commodity.  
+        Bars show site counts; the vertical line marks the mean across the top 10.  
+        Use this view to quickly identify leaders and how far each country sits above or below the average.
+      </p>
     </section>
-  </div>
+  </main>
 
   <script src="./vegalite.js?v=8"></script>
 </body>

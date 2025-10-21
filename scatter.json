@@ -43,46 +43,48 @@
     {"filter": "pCont == 'All' || datum.Continent == pCont"}
   ],
 
-  "layer": [
-    {
-      "mark": {"type": "circle", "opacity": 0.85},
-      "encoding": {
-        "x": {
-          "field": "income_usd",
-          "type": "quantitative",
-          "title": "Income per Capita (USD, log)",
-          "scale": {"type": "log"},
-          "axis": {"format": "~s"}
-        },
-        "y": {
-          "field": "prod_2023",
-          "type": "quantitative",
-          "title": "Total Mineral Production in 2023 (t)",
-          "axis": {"format": "~s"}
-        },
-        "size": {
-          "field": "prod_2023",
-          "type": "quantitative",
-          "legend": null,
-          "title": "Production (t)",
-          "scale": {"type": "sqrt", "range": [10, 900]}
-        },
-        "color": {
-          "field": "Continent",
-          "type": "nominal",
-          "title": "Continent",
-          "scale": {
-            "domain": ["Africa","Asia","Europe","North America","Latin America","Oceania"],
-            "range": ["#1f77b4","#ff7f0e","#2ca02c","#9467bd","#8c564b","#17becf"]
-          }
-        },
-        "tooltip": [
-          {"field": "Country", "title": "Country"},
-          {"field": "Continent", "title": "Continent"},
-          {"field": "income_usd", "title": "Income per Capita", "format": ",.0f"},
-          {"field": "prod_2023", "title": "Production 2023 (t)", "format": ",.0f"}
-        ]
+  "mark": {"type": "circle", "opacity": 0.85},
+
+  "encoding": {
+    "x": {
+      "field": "income_usd",
+      "type": "quantitative",
+      "title": "Income per Capita (USD, log)",
+      "scale": {"type": "log"},
+      "axis": {"format": "~s"}
+    },
+    "y": {
+      "field": "prod_2023",
+      "type": "quantitative",
+      "title": "Total Mineral Production in 2023 (t)",
+      "axis": {"format": "~s"}
+    },
+    "size": {
+      "field": "prod_2023",
+      "type": "quantitative",
+      "legend": null,
+      "title": "Production (t)",
+      "scale": {"type": "sqrt", "range": [10, 900]}
+    },
+    "color": {
+      "field": "Continent",
+      "type": "nominal",
+      "title": "Continent",
+      "scale": {
+        "domain": ["Africa","Asia","Europe","North America","Latin America","Oceania"],
+        "range": ["#1f77b4","#ff7f0e","#2ca02c","#9467bd","#8c564b","#17becf"]
       }
-    }
-  ]
-}         
+    },
+    "tooltip": [
+      {"field": "Country", "title": "Country"},
+      {"field": "Continent", "title": "Continent"},
+      {"field": "income_usd", "title": "Income per Capita", "format": ",.0f"},
+      {"field": "prod_2023", "title": "Production 2023 (t)", "format": ",.0f"}
+    ]
+  },
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"titleFontSize": 13}
+  }
+}

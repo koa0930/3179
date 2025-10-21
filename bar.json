@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top 5 producing countries + Other by mineral (share %).",
+  "title": {"text": "Top 5 Producing Countries by Mineral — Share % (2023)", "fontWeight": "bold"},
+  "width": 780,
+  "height": 420,
+
+  "data": {
+    "url": "https://raw.githubusercontent.com/koa0930/3179/main/data/top5_by_mineral_2023.csv"
+  },
+
+  "params": [
+    {
+      "name": "pMineral",
+      "value": "Iron (Fe)",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Iron (Fe)", "Copper", "Aluminium", "Nickel", "Zinc",
+          "Gold", "Silver", "Steam Coal", "Petroleum", "Natural Gas"
+        ],
+        "name": "Mineral: "
+      }
+    }
+  ],
+
+  "layer": [
+    {
+      "transform": [
+        {"filter": "datum.Mineral == pMineral"},
+        {"calculate": "toNumber(datum.Share_pct)/100", "as": "share_frac"},
+        {"calculate": "toNumber(datum.Rank)", "as": "rank_num"}
+      ],
+      "mark": {"type": "bar", "cornerRadiusEnd": 4},
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": {"field": "rank_num", "op": "min", "order": "ascending"},
+          "title": "Country (Top Rank)"
+        },
+        "x": {
+          "field": "share_frac",
+          "type": "quantitative",
+          "title": "Share of World Production (2023)",
+          "axis": {"format": ".0%"}
+        },
+        "color": {"field": "Country", "type": "nominal", "legend": null},
+        "tooltip": [
+          {"field": "Country", "title": "Country"},
+          {"field": "rank_num", "title": "Rank"},
+          {"field": "share_frac", "title": "Share (%)", "format": ".1%"}
+        ]
+      }
+    },
+
+    {
+      "transform": [
+        {"filter": "datum.Mineral == pMineral"},
+        {"calculate": "toNumber(datum.Share_pct)/100", "as": "share_frac"},
+        {"aggregate": [{"op": "sum", "field": "share_frac", "as": "sum_top5"}]},
+        {"calculate": "max(0, 1 - datum.sum_top5)", "as": "share_frac"},
+        {"calculate": "'Other'", "as": "Country"},
+        {"calculate": "6", "as": "rank_num"}
+      ],
+      "mark": {"type": "bar", "cornerRadiusEnd": 4},
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": {"field": "rank_num", "op": "min", "order": "ascending"},
+          "title": null
+        },
+        "x": {
+          "field": "share_frac",
+          "type": "quantitative",
+          "title": null,
+          "axis": {"format": ".0%"}
+        },
+        "color": {"value": "#9aa0a6"},
+        "tooltip": [
+          {"field": "Country", "title": "Group"},
+          {"field": "share_frac", "title": "Share (%)", "format": ".1%"}
+        ]
+      }
+    }
+  ],
+
+  "config": {
+    "view": {"stroke": null},
+    "axis": {"titleFontSize": 13},
+    "title": {"fontSize": 18}
+  }
+}

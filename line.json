@@ -1,0 +1,54 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Concentration Curve — Cumulative Share by Rank (2023)", "fontWeight": "bold"},
+  "width": 720, "height": 380,
+  "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/top5_by_mineral_2023.csv"},
+
+  "params": [
+    {
+      "name": "pMineral",
+      "value": "Iron (Fe)",
+      "bind": {
+        "input":"select",
+        "options":["Iron (Fe)","Copper","Aluminium","Nickel","Zinc","Gold","Silver","Steam Coal","Petroleum","Natural Gas"],
+        "name":"Mineral: "
+      }
+    }
+  ],
+
+  "transform": [
+    {"filter": "datum.Mineral == pMineral"},
+    {"calculate": "toNumber(datum.Share_pct)/100", "as": "share"},
+    {"calculate": "toNumber(datum.Rank)", "as": "rank_num"},
+    {"filter": "datum.rank_num >= 1 && datum.rank_num <= 5"},
+    {
+      "window": [{"op": "sum", "field": "share", "as": "cum_share"}],
+      "sort": [{"field":"rank_num","order":"ascending"}],
+      "frame": [null, 0]
+    }
+  ],
+
+  "mark": {"type": "line", "point": true},
+
+  "encoding": {
+    "x": {
+      "field":"rank_num", "type":"ordinal",
+      "title":"Rank (Top 1 → 5)",
+      "scale": {"domain": [1,2,3,4,5]},
+      "axis": {"values":[1,2,3,4,5]}
+    },
+    "y": {
+      "field":"cum_share", "type":"quantitative",
+      "title":"Cumulative Share",
+             
+      "axis": {"format":".0%", "values":[0,0.2,0.4,0.6,0.8]}
+    },
+    "tooltip": [
+      {"field":"Country","title":"Country"},
+      {"field":"rank_num","title":"Rank"},
+      {"field":"cum_share","title":"Cumulative Share","format":".1%"}
+    ]
+  },
+
+  "config":{"view":{"stroke":null},"axis":{"titleFontSize":13}}
+}

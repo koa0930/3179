@@ -25,80 +25,79 @@
   </header>
 
   <main class="container">
-    <!-- 1) Map -->
+  
     <section class="card">
       <h2>Global Mine Distribution by Country</h2>
       <div id="vis-map" class="vis"></div>
       <p class="desc">
-        Countries are shaded by the number of recorded mine sites (darker = more). Hover to see the
-        country name, site count, and its share of the global total. Use this map to spot regional
-        hotspots and compare how activity clusters across continents. Note: very small territories
-        may be grouped or omitted by the basemap.
+        Countries are shaded by the number of recorded mine sites. Hover to see the country name, site count,
+        and its share of the global total. Use this map to spot regional hotspots and compare how activity 
+        clusters across continents. 
       </p>
     </section>
 
-    <!-- Row: Bar + Line side-by-side -->
+  
     <div class="row">
-      <!-- 2) Bar -->
+    
       <section class="card">
         <h2>Top 10 Countries by Mine Sites</h2>
         <div id="vis-bar" class="vis"></div>
         <p class="desc">
-          Select a mineral to see the leading producers. Bars are sorted from largest to smallest so
-          you can compare dominance and the gap to the runner-up at a glance. Use this chart to
-          identify which countries specialise in a chosen mineral and how concentrated leadership is.
+          Select a mineral to see the leading producers. Bars are sorted from largest to smallest so you can 
+          compare dominance and the gap to the runner up at a glance. Use this chart to identify which 
+          countries specialise in a chosen mineral and how concentrated leadership is.
         </p>
       </section>
 
-      <!-- 3) Line -->
+    
       <section class="card">
         <h2>Mineral monopoly rate of top 5 countries</h2>
         <div id="vis-line" class="vis"></div>
         <p class="desc">
-          The curve shows the cumulative share captured by the top ranked producers (Top 1 → Top 5).
-          A steeper rise indicates a highly concentrated market (few producers dominate); a flatter
-          curve suggests a more even distribution across producers. Switch minerals to compare how
-          concentration differs by commodity.
+          The curve shows the cumulative share captured by the top ranked producers. 
+          A steeper rise indicates a highly concentrated market; a flatter curve suggests 
+          a more even distribution across producers. Switch minerals to compare how concentration differs 
+          by commodity.
         </p>
       </section>
     </div>
 
-    <!-- 4) Stacked Area -->
+  
     <section class="card">
       <h2>Growth of Production by Continent </h2>
       <div id="vis-stacked" class="vis"></div>
       <p class="desc">
-        Total production over time, split by continent. The stacking reveals both overall growth and
-        each continent’s contribution to the global total. Hover to see year totals and continent
-        shares—useful for spotting long-term trends, plateaus, and shifts in regional leadership.
+        Total production over time, split by continent. The stacking reveals both overall growth
+         and each continent’s contribution to the global total. Hover to see year totals and continent 
+         shares useful for spotting long term trends, plateaus, and shifts in regional leadership.
       </p>
     </section>
 
-    <!-- 5) Scatter -->
+
     <section class="card">
       <h2>Effect of Mineral Production on Income per Capita</h2>
       <div id="vis-scatter" class="vis"></div>
       <p class="desc">
-        Each bubble represents a country: x-axis is income per capita (log scale), y-axis is total
+        Each bubble represents a country: x-axis is income per capita, y-axis is total
         mineral production, colour encodes continent. Filter by continent to explore patterns. Look
-        for clusters and outliers—do high-output countries also have higher incomes, or are there
-        resource-rich economies with lower income per capita?
+        for clusters and outliers do high output countries also have higher incomes, or are there
+        resource rich economies with lower income per capita?
       </p>
     </section>
 
-    <!-- 6) Donut -->
+  
     <section class="card">
       <h2>Detail of Continents</h2>
       <div id="vis-donut" class="vis"></div>
       <p class="desc">
-        A two-level view of composition. The top ring summarises shares at the continent level; the
-        lower ring breaks down countries within the selected context (e.g., year/continent). Use the
+        A two level view of composition. The top ring summarises shares at the continent level; the
+        lower ring breaks down countries within the selected context. Use the
         slider and legend to explore how the mix changes and which countries drive each region.
       </p>
     </section>
   </main>
 
-  <!-- Footer -->
+
   <footer class="footer">
     <p>
       Sources:
@@ -113,7 +112,7 @@
     </p>
   </footer>
 
-  <!-- Embed all charts -->
+
   <script src="./vegalite.js?v=1"></script>
 </body>
 </html>

@@ -83,40 +83,6 @@
           {"field": "prod_2023", "title": "Production 2023 (t)", "format": ",.0f"}
         ]
       }
-    },
-
-
-    {
-      "transform": [
-        {"filter": "datum.Country == 'China'"},
-        {
-          "calculate": "'Country: China\\nIncome: $' + format(datum.income_usd, ',.0f') + '\\nProduction: ' + format(datum.prod_2023, ',.0f') + ' t'",
-          "as": "label"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "baseline": "top",
-        "dx": 12,
-        "dy": -12,
-        "fontSize": 13,
-        "fontWeight": "bold",
-        "lineBreak": "\\n",
-        "fill": "#111827",
-        "stroke": "white",
-        "strokeWidth": 4
-      },
-      "encoding": {
-        "x": {"field": "income_usd"},
-        "y": {"field": "prod_2023"},
-        "text": {"field": "label"}
-      }
     }
-  ],
-
-  "config": {
-    "view": {"stroke": null},
-    "axis": {"titleFontSize": 13}
-  }
-}
+  ]
+}         

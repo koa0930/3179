@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "Total Mineral Production vs Income per Capita (2023)", "fontWeight": "bold"},
+  "width": 780,
+  "height": 520,
+
+  "data": {
+    "url": "https://raw.githubusercontent.com/koa0930/3179/main/data/ALL_country_total_production_2019_2023.csv"
+  },
+
+  "params": [
+    {
+      "name": "pCont",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "Continent: ",
+        "options": ["All","Africa","Asia","Europe","North America","Latin America","Oceania"]
+      }
+    }
+  ],
+
+  "transform": [
+    {"calculate": "toNumber(datum['2023'])", "as": "prod_2023"},
+    {
+      "lookup": "Country",
+      "from": {
+        "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/Annual_per_capita_income_ALIGNED.csv"},
+        "key": "Country",
+        "fields": ["Income_per_capita_USD"]
+      }
+    },
+    {
+      "lookup": "Country",
+      "from": {
+        "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/country_continent.csv"},
+        "key": "Country",
+        "fields": ["Continent"]
+      }
+    },
+    {"calculate": "toNumber(datum.Income_per_capita_USD)", "as": "income_usd"},
+    {"filter": "isValid(datum.prod_2023) && isValid(datum.income_usd) && datum.prod_2023 > 0 && datum.income_usd > 0"},
+    {"filter": "datum.Continent != null"},
+    {"filter": "pCont == 'All' || datum.Continent == pCont"},
+    {
+      "calculate":
+        "pCont=='Africa' ? '#1f77b4' : pCont=='Asia' ? '#ff7f0e' : pCont=='Europe' ? '#2ca02c' : pCont=='North America' ? '#9467bd' : pCont=='Latin America' ? '#8c564b' : pCont=='Oceania' ? '#17becf' : '#666'",
+      "as": "trend_color"
+    }
+  ],
+
+  "layer": [
+  
+    {
+      "mark": {"type": "circle", "opacity": 0.85},
+      "encoding": {
+        "x": {
+          "field": "income_usd", "type": "quantitative",
+          "title": "Income per Capita (USD, log)",
+          "scale": {"type": "log"}, "axis": {"format": "~s"}
+        },
+        "y": {
+          "field": "prod_2023", "type": "quantitative",
+          "title": "Total Mineral Production in 2023 (t)",
+          "axis": {"format": "~s"}
+        },
+        "size": {
+          "field": "prod_2023", "type": "quantitative",
+          "legend": null, "title": "Production (t)",
+          "scale": {"type": "sqrt", "range": [10, 900]}
+        },
+        "color": {
+          "field": "Continent", "type": "nominal", "title": "Continent",
+          "scale": {
+            "domain": ["Africa","Asia","Europe","North America","Latin America","Oceania"],
+            "range":  ["#1f77b4","#ff7f0e","#2ca02c","#9467bd","#8c564b","#17becf"]
+          }
+        },
+        "tooltip": [
+          {"field": "Country", "title": "Country"},
+          {"field": "Continent", "title": "Continent"},
+          {"field": "income_usd", "title": "Income per Capita", "format": ",.0f"},
+          {"field": "prod_2023", "title": "Production 2023 (t)", "format": ",.0f"}
+        ]
+      }
+    }
+
+
+  ],
+
+  "config": {"view": {"stroke": null}, "axis": {"titleFontSize": 13}}
+}

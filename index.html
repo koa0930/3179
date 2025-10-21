@@ -3,34 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <title>Global Mine Visualisations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="./style.css" />
+
+  <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
+
 <body>
-  <h1 class="page-title">Global Mine Distribution by Country in 2022</h1>
+  <header class="page-header">
+    <h1 class="page-title">Global Mine Visualisations</h1>
+    <p class="lede">Six idioms built with Vega-Lite, using 2022 mining data.</p>
+  </header>
 
   <main class="container">
-    <!-- Card 1 -->
+    <!-- 1) Map -->
     <section class="card">
-      <h2>Map of Global Mine Distribution by Country</h2>
-      <div id="vis-map"></div>
+      <h2>Global Mine Distribution by Country (2022)</h2>
+      <div id="vis-map" class="vis"></div>
+      <p class="desc">Choropleth showing mine counts per country. Hover for details.</p>
     </section>
 
-    <!-- Card 2 -->
+    <!-- 2) Bar -->
     <section class="card">
       <h2>Top 10 Countries by Mine Sites</h2>
-      <div id="vis-task1"></div>
+      <div id="vis-bar" class="vis"></div>
+      <p class="desc">Ranks leaders by site counts; use to compare relative dominance.</p>
+    </section>
 
-      <p class="desc">
-        This chart ranks the countries with the most mine sites for the selected commodity.  
-        Bars show site counts; the vertical line marks the mean across the top 10.  
-        Use this view to quickly identify leaders and how far each country sits above or below the average.
-      </p>
+    <!-- 3) Line -->
+    <section class="card">
+      <h2>Trend of Total Mine Output</h2>
+      <div id="vis-line" class="vis"></div>
+      <p class="desc">Long-term changes in global output across years.</p>
+    </section>
+
+    <!-- 4) Stacked Area -->
+    <section class="card">
+      <h2>Output by Commodity (Stacked)</h2>
+      <div id="vis-stacked" class="vis"></div>
+      <p class="desc">How commodities contribute to total output over time.</p>
+    </section>
+
+    <!-- 5) Scatter -->
+    <section class="card">
+      <h2>Output vs. Number of Sites</h2>
+      <div id="vis-scatter" class="vis"></div>
+      <p class="desc">Relationship between site counts and production; bubbles = countries.</p>
+    </section>
+
+    <!-- 6) Donut -->
+    <section class="card">
+      <h2>Share of Sites by Commodity</h2>
+      <div id="vis-donut" class="vis"></div>
+      <p class="desc">Composition snapshot of site shares across commodities.</p>
     </section>
   </main>
 
-  <script src="./vegalite.js?v=8"></script>
+  <!-- Embed all charts -->
+  <script src="./vegalite.js?v=1"></script>
 </body>
 </html>

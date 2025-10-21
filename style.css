@@ -1,9 +1,9 @@
-/* Page background + typography */
+
 :root {
-  --bg: #f3f4f6;         /* light grey page background */
-  --card: #ffffff;       /* white card */
-  --text: #111827;       /* near-black body text */
-  --muted: #6b7280;      /* muted paragraph text */
+  --bg: #f3f4f6;         
+  --card: #ffffff;      
+  --text: #111827;       
+  --muted: #6b7280;    
   --shadow: 0 10px 25px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
 }
 
@@ -18,20 +18,20 @@ html, body {
   line-height: 1.45;
 }
 
-/* Header block: center title + intro */
+
 .page-header {
   max-width: 1200px;
   margin: 28px auto 6px;
   padding: 0 20px;
-  text-align: center;      /* center title + lede */
+  text-align: center;     
 }
 
 .page-title {
   margin: 0 0 6px;
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(40px, 4vw, 50px);
   font-weight: 800;
   letter-spacing: .3px;
-  font-family: "Georgia", "Times New Roman", serif;   /* serif for titles */
+  font-family: "Georgia", "Times New Roman", serif;   
 }
 
 .lede {
@@ -40,7 +40,7 @@ html, body {
   font-size: 1rem;
 }
 
-/* Centered content column */
+
 .container {
   max-width: 1200px;
   margin: 8px auto 48px;
@@ -50,7 +50,7 @@ html, body {
   gap: 28px;
 }
 
-/* Card look for each visualization */
+
 .card {
   background: var(--card);
   border-radius: 14px;
@@ -58,15 +58,15 @@ html, body {
   padding: 22px 22px 18px;
 }
 
-/* Section titles */
+
 .card > h2 {
   margin: 0 0 12px;
   font-size: clamp(18px, 2.6vw, 26px);
   font-weight: 700;
-  font-family: "Georgia", "Times New Roman", serif;   /* serif for section titles */
+  font-family: "Georgia", "Times New Roman", serif;   
 }
 
-/* Make embedded charts responsive */
+
 .card .vega-embed,
 .card canvas,
 .card svg,
@@ -75,32 +75,32 @@ html, body {
   width: 100%;
 }
 
-/* Two-column row layout for paired charts */
+
 .row {
   display: flex;
   flex-wrap: wrap;
   gap: 28px;
 }
 
-/* Make each card share the row equally */
+
 .row .card {
-  flex: 1 1 500px; /* min width ≈500px before wrapping */
+  flex: 1 1 500px; 
 }
 
-/* Description text */
+
 .desc {
   margin: 12px 0 4px;
   color: var(--muted);
   font-size: 0.95rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;   /* sans-serif for body text */
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;  
 }
 
-/* Optional: make Vega-Embed action footer minimal */
+
 .vega-actions a {
   color: #6b7280;
 }
 
-/* Footer styling */
+
 .footer {
   max-width: 1200px;
   margin: 32px auto 28px;
@@ -108,7 +108,7 @@ html, body {
   text-align: center;
   color: var(--muted);
   font-size: 0.9rem;
-  border-top: 1px solid #e5e7eb; /* subtle separator */
+  border-top: 1px solid #e5e7eb; 
 }
 .footer a { color: #2563eb; text-decoration: none; }
 .footer a:hover { text-decoration: underline; }

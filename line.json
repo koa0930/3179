@@ -55,25 +55,33 @@
       }
     },
 
-
+    {
+  "transform": [
+    {"filter": "datum.rank_num == 5"},
+    {"calculate": "'Total: ' + format(datum.cum_share, '.0%')", "as": "label"}
+  ],
+  "layer": [
     {
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 8,
-        "dy": -8,
+        "baseline": "middle",
+        "dx": 6,         
+        "dy": -2,            
         "fontSize": 13,
         "fontWeight": "bold",
-        "color": "#1f2937"
+        "fill": "#111827",
+        "stroke": "white",    
+        "strokeWidth": 3
       },
-      "transform": [{"filter": "datum.rank_num == 5"}],
       "encoding": {
         "x": {"field": "rank_num"},
         "y": {"field": "cum_share"},
-        "text": {"field": "cum_share", "format": ".0%"}
+        "text": {"field": "label"}
       }
     }
-  ],
+  ]
+    }
 
-  "config": {"view": {"stroke": null}, "axis": {"titleFontSize": 13}}
+  ]
 }

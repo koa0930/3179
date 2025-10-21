@@ -32,9 +32,11 @@
   "encoding": {
     "x": {
       "field":"rank_num", "type":"ordinal",
-      "title":"Rank (Top 1 → 5)",
+      "title":"Rank ",
       "scale": {"domain": [1,2,3,4,5]},
-      "axis": {"values":[1,2,3,4,5]}
+      "axis": {"values":[1,2,3,4,5]},
+      "labelAngle": 0,        
+      "labelPadding": 8
     },
     "y": {
       "field":"cum_share", "type":"quantitative",

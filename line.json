@@ -19,69 +19,43 @@
   ],
 
   "transform": [
-    {"filter": "datum.Mineral == pMineral"},
-    {"calculate": "toNumber(datum.Share_pct)/100", "as": "share"},
-    {"calculate": "toNumber(datum.Rank)", "as": "rank_num"},
-    {"filter": "datum.rank_num >= 1 && datum.rank_num <= 5"},
+    { "filter": "datum.Mineral == pMineral" },
+    { "calculate": "toNumber(datum.Share_pct)/100", "as": "share" },
+    { "calculate": "toNumber(datum.Rank)", "as": "rank_num" },
+    { "filter": "datum.rank_num >= 1 && datum.rank_num <= 5" },
     {
-      "window": [{"op": "sum", "field": "share", "as": "cum_share"}],
-      "sort": [{"field": "rank_num", "order": "ascending"}],
+      "window": [{ "op": "sum", "field": "share", "as": "cum_share" }],
+      "sort": [{ "field": "rank_num", "order": "ascending" }],
       "frame": [null, 0]
     }
   ],
 
+  "resolve": { "scale": { "x": "shared", "y": "shared" } },
+
   "layer": [
     {
-      "mark": {"type": "line", "point": true},
+      "mark": { "type": "line", "point": true },
       "encoding": {
         "x": {
           "field": "rank_num",
           "type": "ordinal",
           "title": "Rank",
-          "scale": {"domain": [1, 2, 3, 4, 5]},
-          "axis": {"values": [1, 2, 3, 4, 5], "labelAngle": 0}
+          "scale": { "domain": [1, 2, 3, 4, 5] },
+          "axis": { "values": [1, 2, 3, 4, 5], "labelAngle": 0 }
         },
         "y": {
           "field": "cum_share",
           "type": "quantitative",
           "title": "Cumulative Share",
-          "axis": {"format": ".0%", "values": [0, 0.2, 0.4, 0.6, 0.8]}
+          "axis": { "format": ".0%", "values": [0, 0.2, 0.4, 0.6, 0.8] }
         },
         "tooltip": [
-          {"field": "Country", "title": "Country"},
-          {"field": "rank_num", "title": "Rank"},
-          {"field": "cum_share", "title": "Cumulative Share", "format": ".1%"}
+          { "field": "Country", "title": "Country" },
+          { "field": "rank_num", "title": "Rank" },
+          { "field": "cum_share", "title": "Cumulative Share", "format": ".1%" }
         ]
       }
-    },
-
-    {
-  "transform": [
-    {"filter": "datum.rank_num == 5"},
-    {"calculate": "'Total: ' + format(datum.cum_share, '.0%')", "as": "label"}
-  ],
-  "layer": [
-    {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "baseline": "middle",
-        "dx": 6,         
-        "dy": -2,            
-        "fontSize": 13,
-        "fontWeight": "bold",
-        "fill": "#111827",
-        "stroke": "white",    
-        "strokeWidth": 3
-      },
-      "encoding": {
-        "x": {"field": "rank_num"},
-        "y": {"field": "cum_share"},
-        "text": {"field": "label"}
-      }
     }
-  ]
-    }
-
   ]
 }
+

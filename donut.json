@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {"text": "World Mineral Production — Continents → Countries (2019–2023)", "fontWeight": "bold"},
+  "config": {"view": {"stroke": null}, "axis": {"titleFontSize": 13}},
+  "params": [
+    {
+      "name": "pYear",
+      "value": 2023,
+      "bind": {"input": "range", "min": 2019, "max": 2023, "step": 1, "name": "Year: "}
+    }
+  ],
+  "vconcat": [
+    {
+      "width": 900,
+      "height": 320,
+      "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/Total_World_Production.csv"},
+      "transform": [
+        {"filter": "datum.Continents && datum.Continents !== 'Total'"},
+        {"fold": ["2019","2020","2021","2022","2023"], "as": ["Year","Value"]},
+        {"calculate": "toNumber(datum.Value)", "as": "prod_t"},
+        {"filter": "toNumber(datum.Year) == pYear"},
+        {"calculate": "datum.Continents", "as": "Continent"}  
+      ],
+      "params": [
+        {
+          "name": "selCont",
+          "select": {"type": "point", "fields": ["Continent"]}, 
+          "value": {"Continent": "Asia"}
+        }
+      ],
+      "mark": {"type": "arc", "innerRadius": 90, "outerRadius": 150, "stroke": "#fff", "cursor": "pointer"},
+      "encoding": {
+        "theta": {"aggregate": "sum", "field": "prod_t"},
+        "color": {
+          "field": "Continent",                     
+          "type": "nominal",
+          "title": "Continent",
+          "scale": {"scheme": "tableau10"},
+          "legend": {"orient": "right"}
+        },
+        "opacity": {"condition": {"param": "selCont", "value": 1}, "value": 0.35},
+        "tooltip": [
+          {"field": "Continent", "title": "Continent"},
+          {"aggregate": "sum", "field": "prod_t", "title": "Production (t)", "format": ",.0f"},
+          {"aggregate": "sum", "field": "prod_t", "title": "Share", "type": "quantitative", "format": ".1%"}
+        ]
+      }
+    },
+    {
+      "width": 900,
+      "height": 360,
+      "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/ALL_country_total_production_2019_2023.csv"},
+      "transform": [
+        {"fold": ["2019","2020","2021","2022","2023"], "as": ["Year","Value"]},
+        {"calculate": "toNumber(datum.Value)", "as": "prod_t"},
+        {"filter": "toNumber(datum.Year) == pYear"},
+        {
+          "lookup": "Country",
+          "from": {
+            "data": {"url": "https://raw.githubusercontent.com/koa0930/3179/main/data/country_continent.csv"},
+            "key": "Country",                             
+            "fields": ["Continent"]
+          }
+        },
+        {"filter": {"param": "selCont", "empty": false}}, 
+        {"filter": "isValid(datum.prod_t) && datum.prod_t > 0"},
+        {"aggregate": [{"op": "sum", "field": "prod_t", "as": "prod_t"}], "groupby": ["Country", "Continent"]},
+        {"window": [{"op": "rank", "as": "rk"}], "sort": [{"field": "prod_t", "order": "descending"}]},
+        {"filter": "datum.rk <= 12"},
+        {"joinaggregate": [{"op": "sum", "field": "prod_t", "as": "total_in_cont"}]},
+        {"calculate": "datum.prod_t / datum.total_in_cont", "as": "share"}
+      ],
+      "mark": {"type": "arc", "innerRadius": 70, "outerRadius": 130},
+      "encoding": {
+        "theta": {"field": "prod_t", "type": "quantitative"},
+        "color": {
+          "field": "Country",
+          "type": "nominal",
+          "title": {"expr": "selCont && selCont.Continent ? 'Top Countries in ' + selCont.Continent : 'Top Countries'"},
+          "legend": {"columns": 2}
+        },
+        "tooltip": [
+          {"field": "Country", "title": "Country"},
+          {"field": "Continent", "title": "Continent"},
+          {"field": "prod_t", "title": "Production (t)", "format": ",.0f"},
+          {"field": "share", "title": "Share in Continent", "format": ".1%"}
+        ]
+      }
+    }
+  ]
+}

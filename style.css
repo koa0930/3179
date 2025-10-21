@@ -26,6 +26,7 @@ html, body {
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 800;
   letter-spacing: .3px;
+  font-family: "Georgia", "Times New Roman", serif;   /* serif for titles */
 }
 
 /* Centered content column */
@@ -51,6 +52,7 @@ html, body {
   margin: 0 0 12px;
   font-size: clamp(18px, 2.6vw, 26px);
   font-weight: 700;
+  font-family: "Georgia", "Times New Roman", serif;   /* serif for section titles */
 }
 
 /* Make embedded charts responsive */
@@ -62,14 +64,28 @@ html, body {
   width: 100%;
 }
 
-/* Description under the second chart */
+/* Description text */
 .desc {
   margin: 12px 0 4px;
   color: var(--muted);
   font-size: 0.95rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;   /* sans-serif for body text */
 }
 
 /* Optional: make Vega-Embed action footer minimal */
 .vega-actions a {
   color: #6b7280;
 }
+
+/* Footer styling */
+.footer {
+  max-width: 1200px;
+  margin: 32px auto 28px;
+  padding: 16px 20px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid #e5e7eb; /* subtle separator */
+}
+.footer a { color: #2563eb; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }

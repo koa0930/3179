@@ -1,7 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Global total mineral production by continent (1984–2023).",
-  "title": {"text": "Mineral Production by Continent (1984–2023)", "fontWeight": "bold"},
   "height": 420,
   "width": 700,
 

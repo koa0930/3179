@@ -1,7 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Top 5 producing countries + Other by mineral (share %).",
-  "title": {"text": "Top 5 Producing Countries by Mineral — Share % (2023)", "fontWeight": "bold"},
   "width": 780,
   "height": 420,
 

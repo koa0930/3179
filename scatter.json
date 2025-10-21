@@ -1,6 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {"text": "Total Mineral Production vs Income per Capita (2023)", "fontWeight": "bold"},
   "width": 780,
   "height": 520,
 

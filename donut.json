@@ -1,6 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {"text": "World Mineral Production — Continents → Countries (2019–2023)", "fontWeight": "bold"},
   "config": {"view": {"stroke": null}, "axis": {"titleFontSize": 13}},
   "params": [
     {

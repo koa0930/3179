@@ -18,15 +18,26 @@ html, body {
   line-height: 1.45;
 }
 
-/* Big page title */
-.page-title {
+/* Header block: center title + intro */
+.page-header {
   max-width: 1200px;
-  margin: 28px auto 8px;
+  margin: 28px auto 6px;
   padding: 0 20px;
+  text-align: center;      /* center title + lede */
+}
+
+.page-title {
+  margin: 0 0 6px;
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 800;
   letter-spacing: .3px;
   font-family: "Georgia", "Times New Roman", serif;   /* serif for titles */
+}
+
+.lede {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 1rem;
 }
 
 /* Centered content column */
@@ -56,12 +67,24 @@ html, body {
 }
 
 /* Make embedded charts responsive */
-.card .vega-embed, 
-.card canvas, 
-.card svg, 
-#vis-map, 
+.card .vega-embed,
+.card canvas,
+.card svg,
+#vis-map,
 #vis-task1 {
   width: 100%;
+}
+
+/* Two-column row layout for paired charts */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* Make each card share the row equally */
+.row .card {
+  flex: 1 1 500px; /* min width ≈500px before wrapping */
 }
 
 /* Description text */

@@ -4,7 +4,7 @@
   "title": {"text": "Global Mineral Production by Continent (1984–2023)", "fontWeight": "bold"},
   "width": "container",
   "height": 420,
-  "data": {"url": "data/6.1. Total_World_Production.csv"},
+  "data": {"url": "data/Total_World_Production.csv"},
   "mark": {"type": "area", "interpolate": "monotone"},
   "encoding": {
     "x": {"field": "year", "type": "ordinal", "title": "Year"},
